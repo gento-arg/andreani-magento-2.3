@@ -1,18 +1,25 @@
 define(
     [
+        // $
         'jquery',
+        // resourceUrlManager
         'DrubuNet_Andreani/js/view/checkout/shipping/model/resource-url-manager',
+        // quote
         'Magento_Checkout/js/model/quote',
-        'Magento_Customer/js/model/customer',
+        // storage
         'mage/storage',
-        'mage/url',
+        // shippingService
         'Magento_Checkout/js/model/shipping-service',
+        // sucursalesRegistry
         'DrubuNet_Andreani/js/view/checkout/shipping/model/sucursales-registry',
+        // provinciasRegistry
         'DrubuNet_Andreani/js/view/checkout/shipping/model/provincias-registry',
+        // errorProcessor
         'Magento_Checkout/js/model/error-processor',
+        // priceUtils
         'Magento_Catalog/js/price-utils'
     ],
-    function ($,resourceUrlManager, quote, customer, storage, urlBuilder, shippingService, sucursalesRegistry,provinciasRegistry, errorProcessor,priceUtils) {
+    function ($, resourceUrlManager, quote, storage, shippingService, sucursalesRegistry, provinciasRegistry, errorProcessor, priceUtils) {
         'use strict';
 
         return {
@@ -112,34 +119,18 @@ define(
 
             getCotizacionSucursal: function (address, form) {
                 shippingService.isLoading(true);
-                //var cacheKey = address.getCacheKey() + "_cotizacion_" + quote.shippingAddress().extensionAttributes.andreanisucursal_provincia + "_" + quote.shippingAddress().extensionAttributes.andreanisucursal_localidad,
-                    //cache = sucursalesRegistry.get(cacheKey),
                 var serviceUrl = resourceUrlManager.getUrlForCotizacionSucursal(quote);
-/*                storage.post(
-                    '%URL for shipping rate estimation%',
-                    JSON.stringify({
-                        // '%address parameters%'
-                    }),
-                    false
-                )
- */
 
-                var settings2 = {
-                    "url": "http://127.0.0.1/rest/default/V1/module/get-cotizacion-sucursal",
-                    "method": "POST",
-                    "headers": {
-                        "Content-Type": "application/json"
-                    },
-                    "data": JSON.stringify({"sucursal":form.getSucursal()}),
-                };
                 storage.post(
                     serviceUrl,
-                    JSON.stringify({"sucursal":form.getSucursal()}),
+                    JSON.stringify({ "sucursal": form.getSucursal() }),
                     true
                 )
                     .done(function (response) {
                         let costoEnvio = priceUtils.formatPrice(response[0].shippingPrice, quote.getPriceFormat());
-                        jQuery(jQuery(jQuery("#label_method_sucursal_andreanisucursal").parent()[0].childNodes[3]).children('span')).text(costoEnvio)
+                        try {
+                            $($($("#label_method_sucursal_andreanisucursal").parent()[0].childNodes[3]).children('span')).text(costoEnvio)
+                        } catch (e) { }
                     })
                     .fail(function (response) {
                         alert("Ocurrio un error obteniendo la cotizacion. Intentelo mas tarde")
@@ -152,30 +143,3 @@ define(
         };
     }
 );
-/*
-            else
-            {
-                shippingService.isLoading(true);
-                storage.post(
-                '%URL for shipping rate estimation%',
-                    JSON.stringify({
-                       // '%address parameters%'
-            }),
-                false
-            ).done(
-                    function (result) {
-                        rateRegistry.set(address.getKey(), result);
-                        shippingService.setShippingRates(result);
-                    }
-                ).fail(
-                    function (response) {
-                        shippingService.setShippingRates([]);
-                        errorProcessor.process(response);
-                    }
-                ).always(
-                    function () {
-                        shippingService.isLoading(false);
-                    }
-                );
-            }
- */

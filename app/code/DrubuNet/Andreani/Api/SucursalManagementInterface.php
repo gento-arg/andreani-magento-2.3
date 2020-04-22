@@ -1,18 +1,25 @@
 <?php
 namespace DrubuNet\Andreani\Api;
 
-
 interface SucursalManagementInterface
 {
 
     /**
-    * Find sucursal for the customer
-    *
-    * @param string $region
-    * @param string $location
-    * @return \DrubuNet\Andreani\Api\Data\SucursalInterface[]
-    */
+     * Find sucursal for the customer
+     *
+     * @param string $region
+     * @param string $location
+     * @return \DrubuNet\Andreani\Api\Data\SucursalInterface[]
+     */
     public function fetchSucursales($region, $location);
+
+    /**
+     * Find sucursales for the customer
+     *
+     * @param string $cp
+     * @return \DrubuNet\Andreani\Api\Data\SucursalInterface[]
+     */
+    public function fetchSucursalesCP($cp);
 
     /**
      * @return \DrubuNet\Andreani\Api\Data\ProvinciaInterface[]

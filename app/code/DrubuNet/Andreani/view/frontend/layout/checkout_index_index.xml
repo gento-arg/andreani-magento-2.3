@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="checkout.root">
@@ -72,11 +72,6 @@
                                                                         <item name="dataScope" xsi:type="string">shippingAddress.piso</item>
                                                                         <item name="label" xsi:type="string">Piso</item>
                                                                         <item name="sortOrder" xsi:type="string">71</item>
-                                                                        <!--                                                    <item name="validation" xsi:type="array">
-                                                                                                                               <item name="validate-number" xsi:type="boolean">true</item>
-                                                                                                                               <item name="max_text_length" xsi:type="number">2</item>
-                                                                                                                               <item name="validate-digits" xsi:type="boolean">true</item>
-                                                                                                                           </item> -->
                                                                     </item>
                                                                     <item name="departamento" xsi:type="array">
                                                                         <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
@@ -152,11 +147,6 @@
                                                             </item>
                                                             <item name="component" xsi:type="string">uiComponent</item>
                                                             <item name="displayArea" xsi:type="string">shippingAdditional</item>
-                                                            <item name="children" xsi:type="array">
-                                                                <item name="drubunet_andreani_form" xsi:type="array">
-                                                                    <item name="component" xsi:type="string">DrubuNet_Andreani/js/view/checkout/shipping/dropdown</item>
-                                                                </item>
-                                                            </item>
                                                         </item>
                                                     </item>
                                                 </item>
